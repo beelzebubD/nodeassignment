@@ -1,0 +1,25 @@
+{
+  "name": "srpingrole",
+  "version": "1.0.0",
+  "description": "assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/div5446/nodeassignment.git"
+  },
+  "keywords": [
+    "node",
+    "assignment",
+    "firstapplication"
+  ],
+  "author": "Divyanshu Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/div5446/nodeassignment/issues"
+  },
+  "homepage": "https://github.com/div5446/nodeassignment#readme"
+}
