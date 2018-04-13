@@ -9,9 +9,9 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected! server.js");
-  con.query("CREATE DATABASE IF NOT EXISTS mydb", function (err, result) {
+  con.query("CREATE DATABASE IF NOT EXISTS yvrg68uo4crm06jm", function (err, result) {
     if (err) throw err;
-    console.log("Database mydb");
+    console.log("Database yvrg68uo4crm06jm");
   });
 });
 var port = process.env.PORT || 3306;

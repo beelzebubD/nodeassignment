@@ -7,7 +7,7 @@ var con = mysql.createConnection({
   host: "tuy8t6uuvh43khkk.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
   user: "kdlfflhaz60phgvg",
   password: "irgbstk2n1jq8lpg"
-  database: "mydb"
+  database: "yvrg68uo4crm06jm"
 }); 
 con.connect(function(err) 
  {
