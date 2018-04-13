@@ -1,0 +1,6 @@
+{
+	"name": "Node.js Database CRUD operations",
+	"description": "A simple CRUD operations in Node.js ",
+	"repository": "https://github.com/div5446/nodeassignment",
+	"keywords": ["node","express","static"],
+}
