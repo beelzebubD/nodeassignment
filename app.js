@@ -4,10 +4,10 @@ var post ;
 var mysql = require('mysql');
 var qs = require('querystring');
 var con = mysql.createConnection({
-  host: "tuy8t6uuvh43khkk.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "kdlfflhaz60phgvg",
-  password: "irgbstk2n1jq8lpg"
-  database: "yvrg68uo4crm06jm"
+  host: "localhost",
+  user: "root",
+  password: "9044",
+  database: "mydb"
 }); 
 con.connect(function(err) 
  {
