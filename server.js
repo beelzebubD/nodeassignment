@@ -14,4 +14,7 @@ con.connect(function(err) {
     console.log("Database mydb");
   });
 });
-http.createServer(app.handleRequest).listen(process.env.PORT || 8000);
+var port = process.env.PORT || 8000;
+http.createServer(app.handleRequest).listen(port,function(){
+	console.log("APP is running on port"+port);
+});
