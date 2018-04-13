@@ -14,4 +14,4 @@ con.connect(function(err) {
     console.log("Database mydb");
   });
 });
-http.createServer(app.handleRequest).listen(8000);
+http.createServer(app.handleRequest).listen(process.env.PORT || 8000);
