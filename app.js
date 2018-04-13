@@ -4,9 +4,9 @@ var post ;
 var mysql = require('mysql');
 var qs = require('querystring');
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "9044",
+  host: "tuy8t6uuvh43khkk.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "kdlfflhaz60phgvg",
+  password: "irgbstk2n1jq8lpg"
   database: "mydb"
 }); 
 con.connect(function(err) 
