@@ -12,7 +12,7 @@ var con = mysql.createConnection({
 con.connect(function(err) 
  {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected! app.js");
  });
 var sql = "CREATE TABLE IF NOT EXISTS user (username VARCHAR(255), password VARCHAR(255))";
 con.query(sql, function (err, result) 
@@ -33,146 +33,130 @@ function renderHTML(path, response) {
 }
 function extract(request, response, option) 
 {
-        var body = '';
-        request.on('data', function (data) 
+  var body = '';
+  request.on('data', function (data) 
+  {
+    body += data;
+  });
+  request.on('end', function ()
+  {
+   var post = qs.parse(body);
+   if(option=="create")
+    {
+      if(post.username!='' || post.password!='')
+      {
+        console.log(post.username);
+        console.log(post.password);
+        var sql = "INSERT INTO user (username, password) VALUES ('"+post.username+"','"+post.password+"')";
+        con.query(sql, function (err, result) 
         {
-            body += data;
-        });
-
-        request.on('end', function ()
-         {
-           var post = qs.parse(body);
-           if(option=="create")
-           {
-             if(post.username!='' || post.password!='')
-             {
-              console.log(post.username);
-              console.log(post.password);
-                var sql = "INSERT INTO user (username, password) VALUES ('"+post.username+"','"+post.password+"')";
-                  con.query(sql, function (err, result) 
-                  {
-                    if (err)
-                    {
-                       response.write("cannot create a user");
-                       response.end();
-                       throw err;
-                    }
-                    console.log("1 record inserted");
-                    renderHTML('./createusername.html', response);
-                  });
-             }
-             else{
-              console.log("fields left blank");
-               response.write("cannot create the user");
-               response.end();
-             }
-            }
-             else if(option=="delete")
-             {
-               if(post.username!='' || post.password!='')
-               {
-                  console.log(post.username);
-                  console.log(post.password);
-                    var sql = "CREATE TABLE IF NOT EXISTS user (username VARCHAR(255), password VARCHAR(255))";
-                    con.query(sql, function (err, result) 
-                    {
-                      if (err) throw err;
-                      console.log("Table created");
-                    });
-                    var sql = "DELETE FROM user WHERE username = '"+post.username+"' and password='"+post.password+"'";
-                    con.query(sql, function (err, result) 
-                    {
-                      if (err)
-                      {
-                       throw err;
-                       response.write("cannot delete a user");
-                       response.end();
-                      }
-                      if(result.affectedRows==0)
-                      {
-                        response.write("cannot delete user : user not present");
-                        response.end();
-                      }else 
-                      {
-                       console.log("Number of records deleted: " + result.affectedRows);
-                       renderHTML('./deleteusername.html', response);
-                      }
-                    });
-                }
-                else
-                 {
-                   console.log("fields left blank");
-                   response.write("cannot delete a user");
-                   response.end();
-                 }
-             }else if(option=="update")
-             {
-              if(post.username!='' || post.password!='')
-              {
-              console.log(post.username);
-              console.log(post.password);
-                var sql = "CREATE TABLE IF NOT EXISTS user (username VARCHAR(255), password VARCHAR(255))";
-                con.query(sql, function (err, result) 
-                {
-                  if (err) throw err;
-                  console.log("Table created");
-                });
-                var sql = "UPDATE user SET password = '"+post.password+"' WHERE username ='"+post.username+"'";
-                con.query(sql, function (err, result) 
-                {
-                  if (err)
-                  {
-                    throw err;
-                    response.write("cannot update a user");
-                    response.end();
-                  }
-                  if(result.affectedRows!=0)
-                  {
-                   renderHTML('./updateuser.html', response);
-                   console.log(result.affectedRows + " record(s) updated");
-                  }else {
-                    response.write("cannot update a user");
-                    response.end();
-                  }
-                });                  
-             }
-             else{
-              console.log("fields left blank");
-              response.write("cannot update a user");
-              response.end();
-            }
-          }else if(option=="getuser")
-             {
-              if(post.username!='')
-              {
-                console.log(post.username);
-                var sql = "CREATE TABLE IF NOT EXISTS user (username VARCHAR(255), password VARCHAR(255))";
-                con.query(sql, function (err, result) 
-                {
-                  if (err) throw err;
-                  console.log("Table created");
-                });
-                con.query("SELECT * FROM user WHERE username='"+post.username+"'", function (err, result, fields)
-                 {
-                    if (err) throw err;
-                    var j=0;
-                    response.write("<h4>username password</h4><br>");
-                    for(i in result)
-                    {
-                     response.write(result[j].username+"  "+result[j].password+'<br>');
-                     j++;
-                    }
-                    response.end();
-                 });             
-              }
-              else
-              {
-                console.log("fields left blank");
-                response.write("cannot update a user");
-                response.end();
-              }
+          if (err)
+          {
+            response.write("cannot create a user");
+            response.end();
+            throw err;
           }
+          console.log("1 record inserted");
+          renderHTML('./createusername.html', response);
         });
+      }
+      else
+      {
+        console.log("fields left blank");
+        response.write("cannot create the user");
+        response.end();
+      }
+    }
+    else if(option=="delete")
+     {
+      if(post.username!='' || post.password!='')
+      {
+       console.log(post.username);
+       console.log(post.password);
+       var sql = "DELETE FROM user WHERE username = '"+post.username+"' and password='"+post.password+"'";
+       con.query(sql, function (err, result) 
+       {
+         if (err)
+         {
+           response.write("cannot delete a user: error occured");
+           response.end();
+           throw err;
+         }
+         if(result.affectedRows==0)
+         {
+           response.write("cannot delete user : user not present");
+           response.end();
+         }else 
+         {
+           console.log("Number of records deleted : " + result.affectedRows);
+           renderHTML('./deleteusername.html', response);
+         }
+         });
+      }
+      else
+      {
+        console.log("fields left blank");
+        response.write("cannot delete a user");
+        response.end();
+      }
+    }else if(option=="update")
+     {
+      if(post.username!='' || post.password!='')
+      {
+        console.log(post.username);
+        console.log(post.password);
+        var sql = "UPDATE user SET password = '"+post.password+"' WHERE username ='"+post.username+"'";
+        con.query(sql, function (err, result) 
+        {
+         if (err)
+         {
+            response.write("cannot update a user");
+            response.end();
+            throw err;
+         }
+         if(result.affectedRows!=0)
+          {
+            renderHTML('./updateuser.html', response);
+            console.log(result.affectedRows + " record(s) updated");
+          }else
+          {
+            response.write("cannot update a user : user not present");
+            response.end();
+          }
+        });                  
+      }
+        else
+        {
+         console.log("fields left blank");
+          response.write("cannot update a user");
+          response.end();
+        }
+     }else if(option=="getuser")
+       {
+         if(post.username!='')
+          {
+           console.log(post.username);
+           con.query("SELECT * FROM user WHERE username='"+post.username+"'", function (err, result, fields)
+            {
+             if (err) throw err;
+             var j=0;
+             response.write("<h4>username password</h4><br>");
+             for(i in result)
+             {
+              response.write(result[j].username+"  "+result[j].password+'<br>');
+              j++;
+             }
+             response.end();
+            });             
+         }
+         else
+          {
+            console.log("fields left blank");
+            response.write("cannot update a user");
+            response.end();
+          }
+        }
+  });
 }
 module.exports = {
   handleRequest: function(request, response) {
@@ -197,6 +181,5 @@ module.exports = {
               response.write('Route not defined');
               response.end();
       }
-
   }
 };
