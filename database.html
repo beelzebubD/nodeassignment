@@ -5,22 +5,22 @@
 </head>
 <body>
 <form method="POST" action="http://localhost:8000/createusername">
-	<input type="text" name="username" placeholder="username" id="createusername" name="username"></input>
+	<input type="text" name="username" placeholder="username"></input>
 	<input type="text" name="password" placeholder="pasword"></input>
 	<button type="submit" id="create">create user</button><br>
 </form>
 <form method="POST" action="http://localhost:8000/deleteusername">
-	<input type="text" name="deleteusername" placeholder="username"></input>
-	<input type="text" name="deletepassword" placeholder="password"></input>
+	<input type="text" name="username" placeholder="username"></input>
+	<input type="text" name="password" placeholder="password"></input>
 	<button type="submit" id="delete">delete user</button><br>
 </form>
-<form method="POST" action="/updateusername">
-	<input type="text" name="updateusername" placeholder="username"></input>
-	<input type="text" name="updatepassword" placeholder="password"></input>
-	<button type="submit" id="update" onclick="">update user</button><br>
+<form method="POST" action="http://localhost:8000/updateuser">
+	<input type="text" name="username" placeholder="username"></input>
+	<input type="text" name="password" placeholder="new password"></input>
+	<button type="submit" id="update">update user password</button><br>
 </form>
-<form method="POST" action="/getuser">
-	<input type="text" name="getuser" placeholder="username"></input>
+<form method="POST" action="http://localhost:8000/getuser">
+	<input type="text" name="username" placeholder="username"></input>
 	<button type="submit" id="read">get user</button><br>
 </form>
 <table id="username"></table>
